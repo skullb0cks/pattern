@@ -1,5 +1,5 @@
 // Karma configuration
-// Generated on Tue Jun 02 2015 20:39:40 GMT+0900 (WIT)
+// Generated on Tue Jun 02 2015 20:39:40 GMT+0900
 
 module.exports = function(config) {
     config.set({
@@ -23,6 +23,8 @@ module.exports = function(config) {
 
         // list of files to exclude
         exclude: [
+            'src/proxy.js',
+            'test/proxy.spec.js'
         ],
 
 
