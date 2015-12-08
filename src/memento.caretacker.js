@@ -6,6 +6,7 @@ function Origin() {
 }
 
 function clone(obj) {
+    if(obj === null && typeof obj !== 'object') return false;
     var key,
         result = {};
     for(key in obj) {
@@ -16,16 +17,20 @@ function clone(obj) {
     return result;
 }
 
-Origin.prototype.save = function() {
+Origin.prototype.save = function(key) {
     if(!this.prop) return;
-    if(!this.stack) this.stack = [];
-    this.stack.push(clone(this.prop));
+    if(!this.stack) this.stack = {};
+    this.stack[key] = clone(this.prop);
 };
 
-Origin.prototype.restore = function() {
-    var prop = this.stack && this.stack.pop();
+Origin.prototype.restore = function(key) {
+    var prop = this.stack && this.stack[key];
     if(!prop) return;
     this.prop = prop;
+};
+
+Origin.prototype.delete = function(key) {
+    if(this.stack && this.stack[key]) return delete this.stack[key];
 };
 
 function Care(id, nick) {
@@ -35,6 +40,11 @@ function Care(id, nick) {
 }
 
 Care.prototype = new Origin();
+Care.prototype.set = function(id, nick) {
+    this.prop.id = id;
+    this.prop.nick = nick;
+};
 
+//test
 
 
